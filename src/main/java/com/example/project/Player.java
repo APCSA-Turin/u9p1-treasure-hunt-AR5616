@@ -34,6 +34,11 @@ public class Player extends Sprite  {
         return "Player:" + super.getRowCol(size);
     }
     
+    // sets player's number of lives
+    public void setNumLives(int newLives) {
+        numLives = newLives;
+    }
+    
     // overriden method moves the Player in the intended direction
     @Override
     public void move(String direction) { // move the (x,y) coordinates of the player

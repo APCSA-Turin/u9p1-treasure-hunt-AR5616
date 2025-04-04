@@ -113,24 +113,94 @@ public class Game {
 
     // initializing the grid with all needed Sprites, placing the Sprites in the correct row and column
     public void initialize() {
-        grid = new Grid(10);
-        player = new Player(0, 0);
-        Enemy enemy = new Enemy(5, 5);
-        Enemy enemy2 = new Enemy(7,8);
-        Treasure treasure = new Treasure(2, 2);
-        Treasure treasure2 = new Treasure(1,7);
-        trophy = new Trophy(9, 9);
-        this.treasures = new Treasure[] {treasure, treasure2};
-        this.enemies = new Enemy[] {enemy, enemy2};
-        grid.placeSprite(player);
-        grid.placeSprite(enemy);
-        grid.placeSprite(enemy2);
-        grid.placeSprite(treasure);
-        grid.placeSprite(treasure2);
-        grid.placeSprite(trophy);
+        // easy difficulty has a grid of size 5 with 1 enemy, 2 treasures, and player gets 1 life
+        if (size == 5) {
+            grid = new Grid(5);
+            player = new Player(0, 0);
+            player.setNumLives(1);
+            Enemy enemy = new Enemy(2, 3);
+            Treasure treasure = new Treasure(2, 2);
+            Treasure treasure2 = new Treasure(4, 3);
+            trophy = new Trophy(0, 4);
+            this.treasures = new Treasure[] {treasure, treasure2};
+            this.enemies = new Enemy[] {enemy};
+            grid.placeSprite(player);
+            grid.placeSprite(enemy);
+            grid.placeSprite(treasure);
+            grid.placeSprite(treasure2);
+            grid.placeSprite(trophy);
+        // medium difficulty has a grid of size 10 with 3 enemies, 2 treasures, and player gets 3 lives
+        } else if (size == 10) {
+            grid = new Grid(10);
+            player = new Player(0, 0);
+            player.setNumLives(3);
+            Enemy enemy = new Enemy(5, 5);
+            Enemy enemy2 = new Enemy(7,8);
+            Enemy enemy3 = new Enemy(3, 2);
+            Treasure treasure = new Treasure(2, 2);
+            Treasure treasure2 = new Treasure(1,7);
+            trophy = new Trophy(9, 9);
+            this.treasures = new Treasure[] {treasure, treasure2};
+            this.enemies = new Enemy[] {enemy, enemy2, enemy3};
+            grid.placeSprite(player);
+            grid.placeSprite(enemy);
+            grid.placeSprite(enemy2);
+            grid.placeSprite(enemy3);
+            grid.placeSprite(treasure);
+            grid.placeSprite(treasure2);
+            grid.placeSprite(trophy);
+        // hard difficulty has a grid of size 15 with 4 enemies, 2 treasures, and player gets 3 lives
+        } else if (size == 15) {
+            grid = new Grid(15);
+            player = new Player(0, 0);
+            player.setNumLives(3);
+            Enemy enemy = new Enemy(5, 5);
+            Enemy enemy2 = new Enemy(7,8);
+            Enemy enemy3 = new Enemy(14, 3);
+            Enemy enemy4 = new Enemy(11, 11);
+            Treasure treasure = new Treasure(14, 8);
+            Treasure treasure2 = new Treasure(1,7);
+            trophy = new Trophy(0, 14);
+            this.treasures = new Treasure[] {treasure, treasure2};
+            this.enemies = new Enemy[] {enemy, enemy2, enemy3, enemy4};
+            grid.placeSprite(player);
+            grid.placeSprite(enemy);
+            grid.placeSprite(enemy2);
+            grid.placeSprite(enemy3);
+            grid.placeSprite(enemy4);
+            grid.placeSprite(treasure);
+            grid.placeSprite(treasure2);
+            grid.placeSprite(trophy);
+        } else {
+            return;
+        }
     }
 
     public static void main(String[] args) {
-        Game LeBron = new Game(10);
+        Scanner scanner = new Scanner(System.in);
+        // initiating an option for the player to play again
+        boolean playAgain = true;
+
+        while (playAgain) {
+            System.out.print("Please choose your difficulty, easy (e), medium (m), or hard (h): ");
+            String difficulty = scanner.nextLine();
+            if (difficulty.equals("e")) {
+                Game LeBron = new Game(5);
+            } else if (difficulty.equals("m")) {
+                Game LeBron = new Game(10);
+            } else if (difficulty.equals("h")) {
+                Game LeBron = new Game(15);
+            } else {
+                // if the user does not input a correct difficulty or after the game has ended, they are asked if they would like to play again
+                System.out.println("Incorrect Input!");
+            }
+
+            System.out.print("Would you like to play again? Type yes or no: ");
+            String replay = scanner.nextLine();
+            if (replay.equals("no")) {
+                playAgain = false;
+            }
+        }
+        System.out.println("I hope you enjoyed the game! Thank you for playing AR's Treasure Hunt!");
     }
 }
